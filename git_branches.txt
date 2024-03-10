@@ -1,0 +1,20 @@
+git branch <name>
+Create a new branch
+
+git merge <name>
+Merge branches to this branch
+
+git branch
+List branches
+
+git checkout <name>
+Switch to a branch
+
+git branch -D <name>
+Delete a branch
+
+git checkout -b <name>
+Create and switch to the new branch
+
+
+
