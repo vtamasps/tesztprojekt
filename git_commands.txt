@@ -27,7 +27,7 @@ Revert the changes of commit <id> (by creating a new commit)
 git reset --hard <id>
 Undo commit(s) up to the commit <id> by deleting commits
 
-+ it is useful to create a .gitignore file where you can specify what files you want Git to ignore
++ it is useful to create a .gitigncore file where you can specify what files you want Git to ignore
 
 //------------------------------------------
 git remote add origin <remote repo url>
@@ -40,3 +40,11 @@ git push --set-upstream origin main
 
 git pull
 
+//------------------------------------------
+git config --global user.name "username"
+git config --global user.email "user@email.com"
+
+git clone <link>
+
+git remote
+git remote get-url origin
