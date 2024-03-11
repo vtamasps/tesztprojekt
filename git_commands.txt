@@ -30,9 +30,13 @@ Undo commit(s) up to the commit <id> by deleting commits
 + it is useful to create a .gitignore file where you can specify what files you want Git to ignore
 
 //------------------------------------------
-git remote add
+git remote add origin <remote repo url>
+
+git remote set-url origin https://vtamasps@github.com/vtamasps/tesztprojekt.git
 
 git push
+git push --set-upstream origin main
+(sima konzolból indítva hitelesíteni kellett a számítógépet a github oldalán, nem kellett a personal access token)
 
 git pull
 
