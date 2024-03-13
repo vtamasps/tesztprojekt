@@ -1,0 +1,18 @@
+workflows, jobs, steps
+Egy repoban workflowk vannak. Egy workflow egy vagy több jobot tartalmaz. Triggerek/eventek triggerelik a workflowkat.
+
+A jobok definiálják a runnereket. Egy jobban egy vagy több step van. Párhuzamosan futhatnak vagy feltételhez kötve.
+
+Step: shellscript vagy action. Lehet third-party action. Egymás után futnak, lehetnek feltételhez kötve.
+
+1. workflow:
+name: [név]
+on: [event] pl workflow_dispatch ->így lehet manuálisan futtatni a github actions között
+jobs: 
+	first-job:
+		runs-on: ubuntu-latest
+		steps:
+			- name: Print greeting
+			  run: echo "Hello World"
+			- name: Print goodbye
+			  run: echo "Done - bye!"
