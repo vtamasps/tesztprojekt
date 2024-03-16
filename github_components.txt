@@ -6,19 +6,35 @@ A jobok definiálják a runnereket. Egy jobban egy vagy több step van. Párhuzamosa
 Step: shellscript vagy action. Lehet third-party action. Egymás után futnak, lehetnek feltételhez kötve.
 
 1. workflow:
+Le lehet állítani mauálisan vagy akár commitnál kivételbe lehet tenni
 name: [név]
 on: [event] pl workflow_dispatch ->így lehet manuálisan futtatni a github actions között
 jobs: 
 	first-job:
+		needs: job_before
 		runs-on: ubuntu-latest
 		steps:
 			- name: Print greeting
 			  run: echo "Hello World"
 			- name: Print goodbye
-			  run: echo "Done - bye!"
+			  run: echo "${{ toJSON(github.event) }}"
 			- name: Get code
 			  uses: actions/checkout@v3
 			    with:
 			      
 
 actions - appok, amik általában gyakran ismételt lépéseket futtatnak (third party, de saját is lehet)
+
+Event
+	Activity Type -> az event korlátozása (pl. pull request open/close vagy editnél fusson az action)
+	Filters -> némelyik eventet kiszûrje (pl némelyik branchre való push eventnél fusson a workflow)
+
+Job artifact
+Lefut egy job (pl build app) és annak az outputja (output asset = artifact) (website fájlok, binary fájlok)
+Ezeket le lehet tölteni de más joboknak is tovább lehet adni
+
+Job output (nem feltétlenül artifact)
+Egy egyszerû érték, amiket már jobok használnak
+
+Caching dependencies
+Hogy ne kelljen minden jobnak külön-külön dependenciet instalálni, lehet cachelni, így gyorsabb lesz
