@@ -16,3 +16,9 @@ jobs:
 			  run: echo "Hello World"
 			- name: Print goodbye
 			  run: echo "Done - bye!"
+			- name: Get code
+			  uses: actions/checkout@v3
+			    with:
+			      
+
+actions - appok, amik általában gyakran ismételt lépéseket futtatnak (third party, de saját is lehet)

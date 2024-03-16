@@ -48,3 +48,14 @@ git clone <link>
 
 git remote
 git remote get-url origin
+
+//--------------------------------------------
+Lokális repo összekötése github repoval
+1. csinálni github repot
+2. csinálni lokális repot
+3. lokális repon belül: 
+	git init
+	git add .
+	git commit -m "initial commit"
+	git remote add origin <vtamasps@github repo link>
+	git push --set-upstream origin main
