@@ -38,3 +38,13 @@ Egy egyszerû érték, amiket már jobok használnak
 
 Caching dependencies
 Hogy ne kelljen minden jobnak külön-külön dependenciet instalálni, lehet cachelni, így gyorsabb lesz
+
+Environment variables
+Jobonként vagy egész workflowként külön változók.
+
+Environments
+Külön environmentet lehet létrehozni azokban külön változókat, külön secreteket használni (pl. teszteléshez, deployhoz)
+Branch protection - melyik branchról lehet használni, timert beállítani a workflowra, reviewereket
+
+Secrets
+Titkos environment változók, nem látható az értékük. A github repoban lehet létrehozni õket, lehet módosítani, de utólag megnézni õket nem.
