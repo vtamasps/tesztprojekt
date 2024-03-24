@@ -48,3 +48,30 @@ Branch protection - melyik branchról lehet használni, timert beállítani a workfl
 
 Secrets
 Titkos environment változók, nem látható az értékük. A github repoban lehet létrehozni õket, lehet módosítani, de utólag megnézni õket nem.
+
+Conditional jobs
+if -> lehet jobnál és stepnél is használni
+continue-on-error -> stepeknél használható, ignorálja a step failure-ket
+conditions via expressions -> 
+	failure() -> igaz, ha bármelyik elõzõ step vagy job failel, 
+	success() -> egy elõzõ step vagy job sem failel,
+	always() -> mindig végrehajtódik még ha leállítják is,
+	cancelled() -> igaz, ha leállítják a workflowt
+	pl.: if: failure() && steps.run-tests.outcome == 'failure'
+
+Matrix jobs
+Run the same jobs with different configurations parallely
+        strategy:
+          matrix:
+            node-version: [12, 14, 16]
+            operating-system: [ubuntu-latest, windows-latest]
+	runs-on: ${{ matrix.operating-system }}
+
+Include - egyedi kombinációkat lehet hozzáadni a mátrixhoz
+Exclude - kihagy egyedi kombinációkat
+            include:
+                - node-version: 18
+                  operating-system: ubuntu-latest
+
+Reusable workflows
+Egy workflow újrahasználása egy másik workflow-ban (workflow jobjában), lehet inputtal, ooutputtal és secretekkel is használni
