@@ -1,0 +1,163 @@
+GIT BRANCHES
+git branch <name>
+Create a new branch
+
+git merge <name>
+Merge branches to this branch
+
+git branch
+List branches
+
+git checkout <name>
+Switch to a branch
+
+git branch -D <name>
+Delete a branch
+
+git checkout -b <name>
+Create and switch to the new branch
+
+//---------------------------------------------------------------------------
+GIT COMMANDS
+
+git init
+Initialize a Git repository (only requred once per project)
+
+git add file.txt
+git add file1.txt file2.txt
+git add subfolder/
+git add *
+git add .
+Stage code changes (for the next commit)
+
+git commit -m "commit message"
+Create a commit for the staged changed (with a message)
+
+git status
+Get the current repository status (e.g., which changes are staged)
+
+git log
+Output a chronologically ordered list of commits
+
+git checkout <id>
+git checkout main
+Temporarily move back to commit <id>
+
+git revert <id>
+Revert the changes of commit <id> (by creating a new commit)
+
+git reset --hard <id>
+Undo commit(s) up to the commit <id> by deleting commits
+
++ it is useful to create a .gitigncore file where you can specify what files you want Git to ignore
+
+//---------
+git remote add origin <remote repo url>
+
+git remote set-url origin https://vtamasps@github.com/vtamasps/tesztprojekt.git
+
+git push
+git push --set-upstream origin main
+(sima konzolból indítva hitelesíteni kellett a számítógépet a github oldalán, nem kellett a personal access token)
+
+git pull
+
+//-------
+git config --global user.name "username"
+git config --global user.email "user@email.com"
+
+git clone <link>
+
+git remote
+git remote get-url origin
+
+//--------
+Lokális repo összekötése github repoval
+1. csinálni github repot
+2. csinálni lokális repot
+3. lokális repon belül: 
+	git init
+	git add .
+	git commit -m "initial commit"
+	git remote add origin <vtamasps@github repo link>
+	git push --set-upstream origin main
+
+//---------------------------------------------------------------------------
+GITHUB COMPONENTS
+workflows, jobs, steps
+Egy repoban workflowk vannak. Egy workflow egy vagy több jobot tartalmaz. Triggerek/eventek triggerelik a workflowkat.
+
+A jobok definiálják a runnereket. Egy jobban egy vagy több step van. Párhuzamosan futhatnak vagy feltételhez kötve.
+
+Step: shellscript vagy action. Lehet third-party action. Egymás után futnak, lehetnek feltételhez kötve.
+
+1. workflow:
+Le lehet állítani mauálisan vagy akár commitnál kivételbe lehet tenni
+name: [név]
+on: [event] pl workflow_dispatch ->így lehet manuálisan futtatni a github actions között
+jobs: 
+	first-job:
+		needs: job_before
+		runs-on: ubuntu-latest
+		steps:
+			- name: Print greeting
+			  run: echo "Hello World"
+			- name: Print goodbye
+			  run: echo "${{ toJSON(github.event) }}"
+			- name: Get code
+			  uses: actions/checkout@v3
+			    with:
+			      
+
+actions - appok, amik általában gyakran ismételt lépéseket futtatnak (third party, de saját is lehet)
+
+Event
+	Activity Type -> az event korlátozása (pl. pull request open/close vagy editnél fusson az action)
+	Filters -> némelyik eventet kiszûrje (pl némelyik branchre való push eventnél fusson a workflow)
+
+Job artifact
+Lefut egy job (pl build app) és annak az outputja (output asset = artifact) (website fájlok, binary fájlok)
+Ezeket le lehet tölteni de más joboknak is tovább lehet adni
+
+Job output (nem feltétlenül artifact)
+Egy egyszerû érték, amiket már jobok használnak
+
+Caching dependencies
+Hogy ne kelljen minden jobnak külön-külön dependenciet instalálni, lehet cachelni, így gyorsabb lesz
+
+Environment variables
+Jobonként vagy egész workflowként külön változók.
+
+Environments
+Külön environmentet lehet létrehozni azokban külön változókat, külön secreteket használni (pl. teszteléshez, deployhoz)
+Branch protection - melyik branchról lehet használni, timert beállítani a workflowra, reviewereket
+
+Secrets
+Titkos environment változók, nem látható az értékük. A github repoban lehet létrehozni õket, lehet módosítani, de utólag megnézni õket nem.
+
+Conditional jobs
+if -> lehet jobnál és stepnél is használni
+continue-on-error -> stepeknél használható, ignorálja a step failure-ket
+conditions via expressions -> 
+	failure() -> igaz, ha bármelyik elõzõ step vagy job failel, 
+	success() -> egy elõzõ step vagy job sem failel,
+	always() -> mindig végrehajtódik még ha leállítják is,
+	cancelled() -> igaz, ha leállítják a workflowt
+	pl.: if: failure() && steps.run-tests.outcome == 'failure'
+
+Matrix jobs
+Run the same jobs with different configurations parallely
+        strategy:
+          matrix:
+            node-version: [12, 14, 16]
+            operating-system: [ubuntu-latest, windows-latest]
+	runs-on: ${{ matrix.operating-system }}
+
+Include - egyedi kombinációkat lehet hozzáadni a mátrixhoz
+Exclude - kihagy egyedi kombinációkat
+            include:
+                - node-version: 18
+                  operating-system: ubuntu-latest
+
+Reusable workflows
+Egy workflow újrahasználása egy másik workflow-ban (workflow jobjában), lehet inputtal, ooutputtal és secretekkel is használni
