@@ -1,0 +1,10 @@
+DOCKER CONTAINER
+Package that contains code + its execution environment. 
+This results in a reproducible execution environments and results.
+Isolated environment
+
+A containerekben is lehet futtatni a jobokat 
+
+A jobok futtathatnak teszteket, itt az lehet a probléma, hogy azok az éles adatbázist elcseszhetik. 
+Ezért kell egy tesztadatbázis. A jobokon belül lehet Service Containereket futtatni, amik a tesztadatbázist hostolják. 
+A job stepjei tudnak kommunikálni a service containerrel és azok service-eivel.

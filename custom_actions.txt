@@ -1,0 +1,12 @@
+-minek kellenek custom actionök?
+saját workflow egyszerûsítése, ahol ugyanazok a stepek ismétlõdnek -> több step összecsoportosítása egy saját actionbe
+lehet hogy még nem is létezik olyan action, amire szükség van (akár bármilyen programnyelven)
+
+custom actionök típusai
+javascript actions - ez javascript kód, programozás (egyértelmû de js tudás kell)
+docker actions - saját dockerfile készítése és konfigurálása (flexibilis de docker tudás kell)
+composite actions - workflow stepek kombinálása (semmi extra más tudást nem igényel)
+
+
+
+
